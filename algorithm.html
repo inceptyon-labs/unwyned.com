@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How Unwyned's recommendation algorithm works - The Intel">
+  <title>The Intel - How It Works - Unwyned</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <style>
+    .legal-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--spacing-3xl) var(--spacing-lg);
+    }
+
+    .legal-content h1 {
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid var(--color-safety-orange);
+      padding-bottom: var(--spacing-md);
+    }
+
+    .legal-content h2 {
+      margin-top: var(--spacing-2xl);
+      margin-bottom: var(--spacing-md);
+      color: var(--color-safety-orange);
+    }
+
+    .legal-content h3 {
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.25rem;
+    }
+
+    .legal-content p {
+      margin-bottom: var(--spacing-md);
+      line-height: 1.8;
+    }
+
+    .legal-content ul, .legal-content ol {
+      margin-bottom: var(--spacing-md);
+      padding-left: var(--spacing-xl);
+      line-height: 1.8;
+    }
+
+    .legal-content li {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .legal-content a {
+      color: var(--color-safety-orange);
+      text-decoration: underline;
+    }
+
+    .highlight-box {
+      background-color: var(--color-gunmetal);
+      border-left: 4px solid var(--color-safety-orange);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+    }
+
+    .info-box {
+      background-color: var(--color-wet-asphalt);
+      border: 1px solid var(--color-gunmetal);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+      border-radius: var(--radius-md);
+    }
+
+    .dimension-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--spacing-lg) 0;
+    }
+
+    .dimension-table th,
+    .dimension-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-gunmetal);
+    }
+
+    .dimension-table th {
+      background-color: var(--color-gunmetal);
+      color: var(--color-safety-orange);
+      font-family: var(--font-headers);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.9rem;
+    }
+
+    .dimension-table tr:hover {
+      background-color: rgba(61, 64, 60, 0.3);
+    }
+
+    .code-block {
+      background-color: #1a1a1a;
+      border: 1px solid var(--color-gunmetal);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background-color: var(--color-safety-orange);
+      color: var(--color-matte-black);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: var(--spacing-xs);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 40px;">
+      </a>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="navbar-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="algorithm.html">The Intel</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="index.html#download" class="btn btn-primary" style="padding: 0.5rem 1rem;">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Algorithm Documentation Content -->
+  <main class="legal-content">
+    <h1>The Intel: How It Works</h1>
+    <p style="color: var(--color-rusted-ibeam); font-family: var(--font-data); font-size: 1.1rem; margin-bottom: var(--spacing-2xl);">
+      Behind the scenes of The Racket's recommendation engine
+    </p>
+
+    <div class="highlight-box">
+      <h3>The Straight Talk</h3>
+      <p>
+        We're not magic. We're math. This page explains exactly how Unwyned matches you to wines, how we learn from your ratings, and why our recommendations get better over time. No smoke and mirrors. Just the operation.
+      </p>
+      <p style="margin-bottom: 0;">
+        <strong>Want the full technical deep-dive?</strong> Read <a href="architecture.html" style="color: var(--color-signal-green); text-decoration: underline;">The Architecture of Taste</a> for the complete engineering documentation including mathematical proofs, psychophysical research citations, and implementation details.
+      </p>
+    </div>
+
+    <h2>1. The Eight-Dimension Taste System</h2>
+    <p>
+      Every wine has a profile. Every drinker has preferences. We map both using the same 8-dimensional system. Think of it like coordinates on a map—except instead of north and south, we're measuring how sweet, tannic, fruity, or earthy something tastes.
+    </p>
+
+    <table class="dimension-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>What It Measures</th>
+          <th>Scale (1-5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Body</strong></td>
+          <td>How heavy or light the wine feels in your mouth</td>
+          <td>Light → Full-bodied</td>
+        </tr>
+        <tr>
+          <td><strong>Sweetness</strong></td>
+          <td>Residual sugar level</td>
+          <td>Bone-dry → Sweet</td>
+        </tr>
+        <tr>
+          <td><strong>Acidity</strong></td>
+          <td>Tartness, brightness, crispness</td>
+          <td>Soft → Crisp/Bright</td>
+        </tr>
+        <tr>
+          <td><strong>Tannin</strong></td>
+          <td>That dry, grippy feeling (mostly in reds)</td>
+          <td>Silky → Grippy</td>
+        </tr>
+        <tr>
+          <td><strong>Fruit Intensity</strong></td>
+          <td>How much fruit flavor dominates</td>
+          <td>Subtle → Fruit-forward</td>
+        </tr>
+        <tr>
+          <td><strong>Oak</strong></td>
+          <td>Vanilla, toast, spice from barrel aging</td>
+          <td>Unoaked → Heavily oaked</td>
+        </tr>
+        <tr>
+          <td><strong>Earthiness</strong></td>
+          <td>Mineral, dirt, mushroom, leather notes</td>
+          <td>Clean → Earthy/Mineral</td>
+        </tr>
+        <tr>
+          <td><strong>Spice</strong></td>
+          <td>Pepper, clove, cinnamon notes</td>
+          <td>Mild → Spicy/Peppery</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>2. How We Build Your Profile: Center-Out Psychographics</h2>
+    <p>
+      When you take the quiz, we use a <strong>Center-Out Scoring Model</strong> instead of directly asking "do you like tannins?" (which most people can't answer accurately). Here's how it works:
+    </p>
+
+    <div class="info-box">
+      <h3>Quiz Strategy: Starting Neutral</h3>
+      <p>
+        Every user starts with a <strong>neutral profile</strong>: all dimensions set to 3.0 (the middle of our 1-5 scale). Questions then shift your profile up or down based on proxy questions about coffee, desserts, textures, and other familiar experiences.
+      </p>
+      <p>
+        <strong>Primary Anchors (±1.2):</strong> Initial questions establish broad direction ("Do you drink coffee black?" affects tannin tolerance).<br>
+        <strong>Reinforcement (±0.8):</strong> Follow-up questions triangulate tricky dimensions like tannin and acidity.<br>
+        <strong>Trade-offs (±1.0):</strong> Final questions prevent "impossible" profiles by forcing choices between conflicting attributes (e.g., "Which is worse: too sweet or too dry?").
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Why Center-Out Works</h3>
+      <p style="margin-bottom: 0.5rem;">
+        This approach prevents "profile saturation" where users hit the maximum (5.0) too easily. To reach an extreme preference, you must answer consistently across multiple correlated questions. Most users end up with profiles around 1.8-4.2, which leaves headroom for learning and adaptation as you rate wines.
+      </p>
+      <p style="margin-bottom: 0;">
+        <strong>Edge Case: Manifold Projection.</strong> If your quiz answers create a chemically impossible profile (e.g., high acid + high sugar + high body), we project it 30% toward the nearest valid wine archetype. This rarely happens with our trade-off questions, but it's a safety net that ensures we can always find real wines that match you.
+      </p>
+    </div>
+
+    <h2>3. The Matching Algorithm</h2>
+    <p>
+      When you scan a menu, here's what happens:
+    </p>
+
+    <h3>Step 1: Extract the Text</h3>
+    <p>
+      Your phone's camera reads the menu using on-device OCR (Optical Character Recognition). On iOS, we use Apple's Vision framework. On Android, Google ML Kit. The image never leaves your device—we only extract the text.
+    </p>
+
+    <h3>Step 2: Parse the Wines</h3>
+    <p>
+      We send the text (not the image) to an AI model to identify each wine, including:
+    </p>
+    <ul>
+      <li>Wine name and producer</li>
+      <li>Varietal (Cabernet, Chardonnay, etc.)</li>
+      <li>Vintage year</li>
+      <li>Region of origin</li>
+      <li>Price (if listed)</li>
+    </ul>
+
+    <div class="info-box">
+      <h3><span class="tag">Privacy</span> Tiered AI Processing</h3>
+      <p>
+        On supported devices (iOS 26+), we use <strong>Apple Intelligence</strong> to parse menus entirely on your device—no cloud required. For older devices or complex menus, we fall back to cloud AI (OpenAI or Claude) with strict input sanitization.
+      </p>
+    </div>
+
+    <h3>Step 3: Estimate Wine Profiles</h3>
+    <p>
+      For each wine on the menu, we estimate its 8-dimension profile using:
+    </p>
+    <ul>
+      <li><strong>Varietal data</strong>: We have profiles for 170+ grape varieties</li>
+      <li><strong>Regional modifiers</strong>: A Burgundy Pinot differs from an Oregon Pinot</li>
+      <li><strong>Description keywords</strong>: "Bold," "crisp," "earthy" adjust the profile</li>
+      <li><strong>Vintage characteristics</strong>: Hot vs. cool years affect fruit intensity</li>
+    </ul>
+
+    <h3>Step 4: Calculate Match Scores (Asymmetric Similarity)</h3>
+    <p>
+      This is where the math happens. We calculate a <strong>weighted, asymmetric Euclidean distance</strong> between your taste vector and each wine's profile vector.
+    </p>
+
+    <div class="code-block">
+// Standard distance calculation
+distance = √[weight₁×(dim₁_wine - dim₁_you)² + ... all 8 dimensions]
+
+// BUT with asymmetric penalties for "deal-breaker" dimensions:
+// - Sweetness, Tannin, Acidity are deal-breakers
+// - If wine > your preference (overshooting): penalty × 1.4
+// - If wine < your preference (undershooting): penalty × 0.8
+    </div>
+
+    <p>
+      <strong>Shorter distance = better match.</strong> A distance of 0 means the wine is exactly your stated preferences. Higher numbers mean it's further from what you like.
+    </p>
+
+    <div class="highlight-box">
+      <h3>Why Asymmetric Penalties?</h3>
+      <p style="margin-bottom: 0.5rem;">
+        Humans are evolutionarily programmed to reject bitterness (poison signal) and excessive acidity (spoilage signal). A wine that's <strong>too tannic</strong> for you is worse than one that's <strong>not tannic enough</strong>.
+      </p>
+      <p style="margin-bottom: 0;">
+        Our asymmetric penalty function ensures that "offending" your palate (overshooting) is penalized nearly twice as heavily as simply "boring" your palate (undershooting). This matches real human sensory psychology.
+      </p>
+    </div>
+
+    <h3>Step 5: Personalized Weighting</h3>
+    <p>
+      Not all dimensions matter equally to you. Some people care deeply about sweetness but don't mind tannins. Others are picky about oak but flexible on acidity.
+    </p>
+    <p>
+      As you rate wines, we learn <strong>which dimensions you care about most</strong> by analyzing the variance in your ratings. Dimensions you rate consistently high or low get higher weight. Dimensions you're inconsistent about get lower weight.
+    </p>
+
+    <h3>Step 6: Sigmoid Normalization</h3>
+    <p>
+      Raw distance scores are hard to interpret. We use a <strong>logistic sigmoid transformation</strong> to convert distance into an intuitive match percentage:
+    </p>
+
+    <div class="code-block">
+score = 1 / (1 + e^(slope × (distance - pivot)))
+
+// Where:
+// - pivot = calibrated distance where score = 50%
+// - slope = sensitivity (how quickly score drops with distance)
+    </div>
+
+    <p>
+      This gives you a clean 0-100% match score. A 98% match means the wine's chemical profile is nearly identical to your preferences in vector space.
+    </p>
+
+    <h3>Step 7: Rank and Display</h3>
+    <p>
+      We sort all wines by match score (best matches at the top) and show you:
+    </p>
+    <ul>
+      <li><strong>Match percentage</strong>: How well it fits your profile (sigmoid-normalized)</li>
+      <li><strong>Why it matches</strong>: "Matches your preference for full-bodied, low-tannin reds"</li>
+      <li><strong>Exploration tags</strong>: "Outside your usual—try it anyway" for wines that might surprise you</li>
+    </ul>
+
+    <h2 id="ranking">4. The Ranking System</h2>
+    <p>
+      We don't use a 100-point scale. We use <strong>The Bootlegger's Quality Scale</strong>—a 1-5 knuckle system inspired by Prohibition-era slang.
+    </p>
+
+    <table class="dimension-table">
+      <thead>
+        <tr>
+          <th>Rating</th>
+          <th>Title</th>
+          <th>What It Means</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 Knuckle</td>
+          <td><strong>The Swill</strong></td>
+          <td>Undrinkable. Drain pour. Gas station wine.</td>
+        </tr>
+        <tr>
+          <td>2 Knuckles</td>
+          <td><strong>The Hustle</strong></td>
+          <td>Trying but failing. Good for cooking, not drinking.</td>
+        </tr>
+        <tr>
+          <td>3 Knuckles</td>
+          <td><strong>The Daily Grind</strong></td>
+          <td>Solid. Does the job. A working person's pour.</td>
+        </tr>
+        <tr>
+          <td>4 Knuckles</td>
+          <td><strong>The Heavy Hitter</strong></td>
+          <td>Excellent. Commands respect. Worth the price.</td>
+        </tr>
+        <tr>
+          <td>5 Knuckles</td>
+          <td><strong>The Don</strong></td>
+          <td>Perfection. You run the block with this bottle.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5. How We Learn From Your Ratings: Bounded Asymptotic Learning</h2>
+    <p>
+      Every time you rate a wine, we update your taste vector using a <strong>bounded asymptotic learning</strong> model. Here's how it works:
+    </p>
+
+    <h3>The Update Formula</h3>
+    <div class="code-block">
+new_profile = old_profile + learning_rate × dampening × (wine_profile - old_profile)
+
+// Where:
+// - learning_rate: Controls update speed (typically 0.1-0.15)
+// - dampening: Prevents "lock-in" at extremes (min 0.25)
+    </div>
+
+    <h3>Positive Ratings (4-5 Knuckles)</h3>
+    <p>
+      We shift your taste vector <strong>toward</strong> the wine's profile. If you love a wine that's more tannic than your current preference (e.g., you're at 3.0, wine is 4.5), we nudge your tannin tolerance up.
+    </p>
+
+    <h3>Negative Ratings (1-2 Knuckles)</h3>
+    <p>
+      We shift your vector <strong>away</strong> from the wine's profile. Hated an oaky Chardonnay (wine oak = 4.5, you're at 3.0)? We'll lower your oak preference toward 2.5 or lower.
+    </p>
+
+    <h3>Saturation Dampening (The Anti-Lock-In)</h3>
+    <p>
+      If you're at an extreme (e.g., Tannin = 5.0 or 1.0), we apply dampening with a hard floor of 0.25. This ensures that even extreme preferences can shift back toward center if you consistently rate wines differently. You're never "locked in" to your initial quiz results.
+    </p>
+
+    <div class="info-box">
+      <h3>Cold Start Problem</h3>
+      <p>
+        New users start with quiz-based profiles. These are decent but not perfect. After 5-10 ratings, your profile becomes significantly more accurate. After 20+ ratings, it's highly personalized.
+      </p>
+    </div>
+
+    <h2 id="privacy">6. Data Privacy and Processing</h2>
+    <p>
+      Here's what stays on your device vs. what goes to the cloud:
+    </p>
+
+    <table class="dimension-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>Where It Lives</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Camera images</td>
+          <td><span class="tag">On-device only</span></td>
+          <td>Privacy. Images never leave your phone unless you explicitly choose to send a difficult label.</td>
+        </tr>
+        <tr>
+          <td>OCR text extraction</td>
+          <td><span class="tag">On-device</span></td>
+          <td>Apple Vision (iOS) and ML Kit (Android) run locally.</td>
+        </tr>
+        <tr>
+          <td>Menu text parsing</td>
+          <td><span class="tag">Cloud (sanitized)</span></td>
+          <td>Sent to AI model to identify wines. Text is sanitized to remove personal info.</td>
+        </tr>
+        <tr>
+          <td>Your taste vector</td>
+          <td><span class="tag">Device + encrypted cloud</span></td>
+          <td>Stored locally and synced to your account (encrypted at rest).</td>
+        </tr>
+        <tr>
+          <td>Wine ratings</td>
+          <td><span class="tag">Device + cloud</span></td>
+          <td>Used to improve your recommendations and sync across devices.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>7. Limitations and Known Issues</h2>
+    <p>
+      We're not perfect. Here's what we're working on:
+    </p>
+
+    <h3>OCR Accuracy</h3>
+    <ul>
+      <li>Handwritten menus are tough. Printed text works best.</li>
+      <li>Low lighting reduces accuracy. Use the flash.</li>
+      <li>Unusual fonts or layouts can confuse the parser.</li>
+    </ul>
+
+    <h3>Wine Data Coverage</h3>
+    <ul>
+      <li>We have profiles for 170+ varietals, but obscure grapes might default to generic estimates.</li>
+      <li>Natural wines and unconventional blends are harder to profile accurately.</li>
+    </ul>
+
+    <h3>Taste Complexity</h3>
+    <ul>
+      <li>8 dimensions capture a lot, but not everything. Terroir nuances, bottle age, and serving temperature matter too.</li>
+      <li>We're constantly refining our models to improve accuracy.</li>
+    </ul>
+
+    <h2>8. The Bottom Line</h2>
+    <p>
+      Unwyned isn't trying to replace sommeliers or become a wine encyclopedia. We're trying to make wine less intimidating. Our algorithm is designed to:
+    </p>
+    <ul>
+      <li>Learn your actual taste preferences (not what you think you should like)</li>
+      <li>Match you to wines you'll enjoy without requiring a degree in viticulture</li>
+      <li>Respect your privacy by processing as much as possible on your device</li>
+      <li>Get better over time as you rate more wines</li>
+    </ul>
+
+    <div class="highlight-box">
+      <h3>Questions or Feedback?</h3>
+      <p>
+        If you have technical questions about the algorithm, want to report a bug, or have suggestions for improvement, reach out to us at <a href="mailto:support@unwyned.com">support@unwyned.com</a>.
+      </p>
+      <p style="margin-bottom: 0;">
+        We built this because we were tired of guessing at wine menus. If it helps you, too—good. If you find issues, let us know.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 32px; margin-bottom: var(--spacing-md);">
+          <p style="color: var(--color-machined-steel); font-size: 0.95rem;">
+            Wine recommendations without the snobbery.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>The Intel</h4>
+          <ul class="footer-links">
+            <li><a href="algorithm.html">How It Works</a></li>
+            <li><a href="architecture.html">Technical Architecture</a></li>
+            <li><a href="algorithm.html#ranking">Ranking System</a></li>
+            <li><a href="algorithm.html#privacy">Data Privacy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="mailto:support@unwyned.com">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>The Outfit</h4>
+          <ul class="footer-links">
+            <li><a href="https://inceptyon.com" target="_blank" rel="noopener">Inceptyon Labs</a></li>
+            <li><a href="mailto:hello@inceptyon.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2024 Inceptyon Labs LLC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/nav.js"></script>
+
+</body>
+</html>

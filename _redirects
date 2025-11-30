@@ -1,0 +1,13 @@
+# Cloudflare Pages redirects
+
+# Redirect www to non-www (if using custom domain)
+https://www.unwyned.com/* https://unwyned.com/:splat 301!
+
+# Redirect HTTP to HTTPS (handled by Cloudflare by default, but explicit)
+http://unwyned.com/* https://unwyned.com/:splat 301!
+
+# SPA fallback (if you add client-side routing later)
+# /app/* /index.html 200
+
+# 404 page (optional - create 404.html if desired)
+# /* /404.html 404

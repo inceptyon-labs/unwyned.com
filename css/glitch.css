@@ -1,0 +1,253 @@
+/* ============================================
+   Glitch Reveal Animation Styles
+   ============================================ */
+
+/* === Unwyned Front (Corporate Facade) === */
+#unwyned-front {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+#unwyned-front .front-logo {
+  font-family: 'Georgia', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: #9E9E9E;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+#unwyned-front .front-tagline {
+  font-family: 'Arial', sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  color: #BDBDBD;
+  margin-top: var(--spacing-md);
+  letter-spacing: 0.2em;
+  font-weight: 300;
+}
+
+/* === The Racket Reality (Hidden Initially) === */
+#racket-reality {
+  display: none;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+#racket-reality.reveal {
+  opacity: 1;
+}
+
+/* === Glitch Animation Keyframes === */
+@keyframes glitchSkew {
+  0% {
+    transform: skew(0deg);
+  }
+  10% {
+    transform: skew(-2deg);
+  }
+  20% {
+    transform: skew(2deg);
+  }
+  30% {
+    transform: skew(-1deg);
+  }
+  40% {
+    transform: skew(1deg);
+  }
+  50% {
+    transform: skew(-3deg);
+  }
+  60% {
+    transform: skew(3deg);
+  }
+  70% {
+    transform: skew(-1deg);
+  }
+  80% {
+    transform: skew(1deg);
+  }
+  90% {
+    transform: skew(0deg);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+
+@keyframes glitchColor {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    filter: hue-rotate(90deg) contrast(150%);
+  }
+  50% {
+    filter: hue-rotate(180deg) contrast(200%);
+  }
+  75% {
+    filter: hue-rotate(270deg) contrast(150%);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes burnOut {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(3) saturate(0);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(10) saturate(0);
+  }
+}
+
+/* === Glitch States === */
+#unwyned-front.glitching {
+  animation: glitchSkew 0.3s linear infinite;
+}
+
+#unwyned-front.glitching::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 3px
+  );
+  animation: scanlines 0.3s linear infinite;
+  pointer-events: none;
+}
+
+#unwyned-front.glitch-intense {
+  animation: glitchSkew 0.1s linear infinite, glitchColor 0.2s linear infinite;
+}
+
+#unwyned-front.glitch-intense::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 45%,
+    rgba(255, 255, 255, 0.8) 55%,
+    transparent 100%
+  );
+  animation: glitchSweep 0.4s ease-out;
+  pointer-events: none;
+}
+
+@keyframes glitchSweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+#unwyned-front.burn-out {
+  animation: burnOut 0.4s ease-out forwards;
+}
+
+/* === VHS Distortion Effect === */
+.vhs-distortion {
+  position: relative;
+}
+
+.vhs-distortion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === Stamp Effect (For Racket Logo Reveal) === */
+.stamp-reveal {
+  animation: stampDown 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+@keyframes stampDown {
+  0% {
+    transform: scale(0) rotate(-5deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* === Reduce Motion Preference === */
+@media (prefers-reduced-motion: reduce) {
+  #unwyned-front.glitching,
+  #unwyned-front.glitch-intense {
+    animation: none;
+  }
+
+  #unwyned-front.burn-out {
+    animation: fadeIn 0.3s ease reverse;
+  }
+
+  .stamp-reveal {
+    animation: fadeIn 0.3s ease;
+  }
+}

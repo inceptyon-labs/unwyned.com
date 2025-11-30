@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Architecture of Taste - Technical documentation for Unwyned's cold-start wine recommendation engine">
+  <title>The Architecture of Taste - Technical Documentation - Unwyned</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <style>
+    .technical-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      font-family: var(--font-body);
+    }
+
+    .technical-content h1 {
+      margin-bottom: var(--spacing-md);
+      border-bottom: 3px solid var(--color-safety-orange);
+      padding-bottom: var(--spacing-md);
+    }
+
+    .technical-content .version {
+      color: var(--color-rusted-ibeam);
+      font-family: var(--font-data);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .technical-content h2 {
+      margin-top: var(--spacing-3xl);
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-safety-orange);
+      font-size: 1.75rem;
+    }
+
+    .technical-content h3 {
+      margin-top: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+      font-size: 1.25rem;
+      color: var(--color-machined-steel);
+    }
+
+    .technical-content h4 {
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.1rem;
+    }
+
+    .technical-content p {
+      margin-bottom: var(--spacing-md);
+      line-height: 1.8;
+    }
+
+    .technical-content ul, .technical-content ol {
+      margin-bottom: var(--spacing-md);
+      padding-left: var(--spacing-xl);
+      line-height: 1.8;
+    }
+
+    .technical-content li {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .technical-content a {
+      color: var(--color-safety-orange);
+      text-decoration: underline;
+    }
+
+    .technical-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--spacing-lg) 0;
+      font-size: 0.95rem;
+    }
+
+    .technical-content th,
+    .technical-content td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-gunmetal);
+    }
+
+    .technical-content th {
+      background-color: var(--color-gunmetal);
+      color: var(--color-safety-orange);
+      font-family: var(--font-headers);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.85rem;
+    }
+
+    .technical-content tr:hover {
+      background-color: rgba(61, 64, 60, 0.3);
+    }
+
+    .formula {
+      background-color: #1a1a1a;
+      border: 1px solid var(--color-gunmetal);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .highlight-box {
+      background-color: var(--color-gunmetal);
+      border-left: 4px solid var(--color-safety-orange);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+    }
+
+    .info-box {
+      background-color: var(--color-wet-asphalt);
+      border: 1px solid var(--color-gunmetal);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+      border-radius: var(--radius-md);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: var(--spacing-xl);
+      color: var(--color-machined-steel);
+      text-decoration: none;
+      font-family: var(--font-data);
+    }
+
+    .back-link:hover {
+      color: var(--color-safety-orange);
+    }
+
+    .references {
+      margin-top: var(--spacing-3xl);
+      padding-top: var(--spacing-xl);
+      border-top: 2px solid var(--color-gunmetal);
+    }
+
+    .references h4 {
+      color: var(--color-safety-orange);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .references ol {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .references li {
+      margin-bottom: var(--spacing-md);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 40px;">
+      </a>
+
+      <button class="navbar-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="navbar-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="algorithm.html">The Intel</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="index.html#download" class="btn btn-primary" style="padding: 0.5rem 1rem;">Download</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Technical Documentation Content -->
+  <main class="technical-content">
+    <a href="algorithm.html" class="back-link">← Back to The Intel</a>
+
+    <h1>The Architecture of Taste: Engineering a Cold-Start Wine Recommender</h1>
+    <p class="version"><strong>Version 3.0</strong> | Technical Documentation</p>
+
+    <div class="highlight-box">
+      <p style="margin-bottom: 0;">
+        This document provides the complete technical specification for Unwyned's recommendation engine. It includes mathematical formulations, psychophysical research citations, implementation details, and engineering rationale. For a simplified overview, see <a href="algorithm.html" style="color: var(--color-signal-green);">The Intel</a>.
+      </p>
+    </div>
+
+    <h2>1. Introduction: The Digitization of Sensory Experience</h2>
+    <p>
+      Building a recommendation engine for wine presents a unique set of challenges that differ fundamentally from recommending movies, books, or electronics. While traditional recommender systems rely on <strong>Collaborative Filtering</strong> (predicting preference based on user similarity matrices), this approach fails in a "Cold-Start" scenario where a new user has zero interaction history. Furthermore, wine is a sensory product defined by chemical properties that do not map linearly to consumer language.
+    </p>
+    <p>
+      This document details the engineering architecture of our proprietary Cold-Start Recommendation Engine. It outlines how we solve the "Semantic Gap" utilizing a <strong>Center-Out Psychographic Quiz</strong>, handle the mathematical reality of "Impossible Profiles" via <strong>Manifold Projection</strong>, and utilize <strong>Adaptive Sigmoid Calibration</strong> to normalize scores across diverse user psychologies.
+    </p>
+
+    <h2>2. The Data Model: An 8-Dimensional Flavor Space</h2>
+    <p>
+      At the core of our system is a vector space representation of taste. Unlike simple tag-based systems (which treat "Fruity" as a binary boolean), we model both users (U) and wines (W) as continuous vectors in ℝ⁸.
+    </p>
+    <p>
+      Each dimension is normalized to a floating-point scale of [1.0, 5.0], representing the intensity of specific chemical compounds:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Scale (1.0 - 5.0)</th>
+          <th>Enological Correlate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Body</strong></td>
+          <td>Watery → Viscous</td>
+          <td>Alcohol by Volume (ABV), Glycerol, Dry Extract</td>
+        </tr>
+        <tr>
+          <td><strong>Sweetness</strong></td>
+          <td>Bone Dry → Dessert</td>
+          <td>Residual Sugar (g/L)</td>
+        </tr>
+        <tr>
+          <td><strong>Acidity</strong></td>
+          <td>Flat → Tart</td>
+          <td>pH, Total Acidity (Tartaric)</td>
+        </tr>
+        <tr>
+          <td><strong>Tannin</strong></td>
+          <td>Silky → Astringent</td>
+          <td>Phenolic content, Proanthocyanidins</td>
+        </tr>
+        <tr>
+          <td><strong>Fruit Intensity</strong></td>
+          <td>Savory → Fruit-Bomb</td>
+          <td>Ester concentration</td>
+        </tr>
+        <tr>
+          <td><strong>Oak</strong></td>
+          <td>Steel → Heavy Oak</td>
+          <td>Lactones, Vanillin (Time in Barrel)</td>
+        </tr>
+        <tr>
+          <td><strong>Earthiness</strong></td>
+          <td>Clean → Funky</td>
+          <td>Geosmin, Brettanomyces</td>
+        </tr>
+        <tr>
+          <td><strong>Spice</strong></td>
+          <td>Mild → Peppery</td>
+          <td>Rotundone concentration</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. The Input Protocol: Center-Out Psychographics</h2>
+    <p>
+      Directly asking users "Do you like high tannins?" yields noisy data due to terminology conflation (users often confuse "Dry" with "Bitter"). To solve this, we employ a <strong>Proxy Profiling</strong> system rooted in psychophysics (Vinotype theory, PROP taster status).
+    </p>
+
+    <h3>3.1 Vector Initialization Strategy</h3>
+    <p>
+      To prevent "Profile Saturation" (where users hit the 5.0 ceiling too easily), we utilize a <strong>Center-Out Scoring Model</strong>.
+    </p>
+    <ul>
+      <li><strong>Initialization:</strong> Every user profile starts as a neutral vector: U = [3.0, 3.0, …, 3.0].</li>
+      <li><strong>Perturbation:</strong> Questions apply vector shifts (Δ) rather than setting absolute values.
+        <ul>
+          <li><strong>Primary Anchors:</strong> Δ = ±1.2 (Moves user to 1.8 or 4.2).</li>
+          <li><strong>Reinforcement/Trade-offs:</strong> Δ = ±0.8 (Required to reach the 1.0 floor or 5.0 ceiling).</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      This ensures that a user only reaches an "Extreme" profile (e.g., Tannin=5.0) if they answer consistently across multiple correlated questions.
+    </p>
+
+    <h3>3.2 Phase I: The Primary Anchors (6 Questions)</h3>
+    <p>These questions establish the broad direction of the user vector.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Question Proxy</th>
+          <th>Target Dimension</th>
+          <th>Logic & Vector Shift</th>
+          <th>Psychophysical Basis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Coffee Style</strong></td>
+          <td>tannin</td>
+          <td>Black → +1.2; Milk/Sugar → -1.2</td>
+          <td>Bitterness tolerance correlates with PROP sensitivity</td>
+        </tr>
+        <tr>
+          <td><strong>Lemon/Sour</strong></td>
+          <td>acidity</td>
+          <td>Love it → +1.2; Too sharp → -1.2</td>
+          <td>Acid-seeking behavior maps to low pH tolerance</td>
+        </tr>
+        <tr>
+          <td><strong>Dessert</strong></td>
+          <td>sweetness</td>
+          <td>Rich Cake → +1.2; Cheese/Savory → -1.2</td>
+          <td>Direct hedonic preference for sucrose</td>
+        </tr>
+        <tr>
+          <td><strong>Texture</strong></td>
+          <td>body</td>
+          <td>Skim Milk → -1.2; Heavy Cream → +1.2</td>
+          <td>Tactile sensitivity maps to viscosity/ABV</td>
+        </tr>
+        <tr>
+          <td><strong>Steak Prep</strong></td>
+          <td>earth, fruit</td>
+          <td>BBQ Glaze → Fruit+, Earth-; Mushrooms → Earth+1.2</td>
+          <td>Umami vs. Sweet preference splitter</td>
+        </tr>
+        <tr>
+          <td><strong>Scents</strong></td>
+          <td>oak</td>
+          <td>Vanilla/Toast → +1.2; Citrus/Clean → -1.2</td>
+          <td>Olfactory preference for lactones (oak)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3.3 Phase II: The Reinforcement Layer (2 Questions)</h3>
+    <p>We triangulate "Risky" dimensions (Tannin and Acidity) where user self-reporting is least reliable.</p>
+    <ul>
+      <li><strong>The Tea Check (Tannin):</strong> "Over-steeped black tea."
+        <ul>
+          <li><em>Drink it:</em> Δ = +0.8. (If they also said Black Coffee, Tannin becomes 3.0 + 1.2 + 0.8 = <strong>5.0</strong>).</li>
+          <li><em>Pour it out:</em> Δ = -0.8. (Corrects a "Black Coffee" user back to ≈3.4—they like flavor but not astringency).</li>
+        </ul>
+      </li>
+      <li><strong>The Salt Check (Acidity):</strong> "Do you salt food before tasting?"
+        <ul>
+          <li><em>Yes:</em> Δ = +0.5 Acidity (Salt suppresses bitterness, common in high-acid seekers).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>3.4 Phase III: The Trade-Off Layer (The "Impossible" Fix)</h3>
+    <p>To prevent the <strong>"All 5s" Paradox</strong> (a user who wants everything maxed out), we force a choice between conflicting chemical attributes.</p>
+    <ul>
+      <li><strong>Question:</strong> "Which is worse: A wine that is too syrupy sweet, or one that dries your mouth out?"
+        <ul>
+          <li><em>Hate Syrup:</em> Sweetness -= 1.0 (Caps Sweetness at 4.0).</li>
+          <li><em>Hate Dry:</em> Tannin -= 1.0 (Caps Tannin at 4.0).</li>
+        </ul>
+      </li>
+      <li><strong>Question:</strong> "Smoothness vs. Boldness?"
+        <ul>
+          <li><em>Smooth:</em> Tannin -= 0.5, Acidity -= 0.5.</li>
+          <li><em>Bold:</em> Body += 0.8, Tannin += 0.5.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      <strong>Result:</strong> A user can reach a 5.0 in <em>one</em> dimension, but the trade-offs ensure they cannot be a 5.0 in <em>all</em> dimensions, keeping the vector within the realm of realistic wine chemistry.
+    </p>
+
+    <h2>4. Preprocessing: Manifold Projection</h2>
+    <p>
+      Even with trade-off questions, users may generate vectors that are chemically rare (e.g., High Acid + High Body + High Sugar). If we search for this vector [5, 5, 5, …] in our database, standard Euclidean distance measures will push the result away from all valid wines.
+    </p>
+
+    <h3>4.1 Solution: Manifold Projection</h3>
+    <p>
+      We define K=5 Archetype Centroids representing valid wine clusters (e.g., BoldRed, CrispWhite, Dessert). When a profile is flagged as "Extreme" (Magnitude > Threshold), we project it toward the nearest valid centroid:
+    </p>
+
+    <div class="formula">
+      U<sub>corrected</sub> = (1 - λ)U<sub>raw</sub> + λC<sub>nearest</sub>
+    </div>
+
+    <p>
+      <strong>Parameter:</strong> λ = 0.3<br>
+      <strong>Rationale:</strong> We shift the user 30% toward reality. This preserves their directional intent (e.g., "I want bold") while ensuring the search occurs within the valid chemical feature space.
+    </p>
+
+    <h2>5. Core Algorithm: Asymmetric Similarity</h2>
+    <p>
+      Standard distance metrics like Euclidean Distance assume symmetry: the penalty for a wine being "too bold" is the same as for it being "too light." In sensory science, this is false.
+    </p>
+    <ul>
+      <li><strong>The "Deal-Breaker" Effect:</strong> Humans are evolutionarily programmed to reject bitterness (poison) and excessive acidity (spoilage).</li>
+      <li><strong>Implementation:</strong> We use an <strong>Asymmetric Penalty Function</strong>.</li>
+    </ul>
+
+    <div class="formula">
+      Penalty Multiplier = {<br>
+      &nbsp;&nbsp;1.4 if Δ > 0 (Overshoot/Deal Breaker)<br>
+      &nbsp;&nbsp;0.8 if Δ ≤ 0 (Undershoot/Safe Miss)<br>
+      }
+    </div>
+
+    <p>
+      This ensures that "offending" the palate is penalized nearly twice as heavily as simply "boring" the palate.
+    </p>
+
+    <h2>6. Scoring Philosophy: Match vs. Confidence</h2>
+    <p>
+      A critical decision in our UX architecture is the presentation of the recommendation score. We explicitly utilize a <strong>"Match Score"</strong> rather than a "Confidence Score" or "Predicted Rating."
+    </p>
+
+    <h3>6.1 Why "Match Score"?</h3>
+    <ul>
+      <li><strong>Geometric Reality:</strong> Our system calculates the geometric proximity between the wine's chemical vector and the user's preference vector. A "98% Match" accurately describes that the vectors are nearly identical in Euclidean space.</li>
+      <li><strong>Managing Expectations:</strong> A "Confidence Score" implies a prediction of the future ("You will like this"). If the user dislikes it, the system appears incompetent. A "Match Score" implies alignment of attributes. If the user dislikes a 98% Match, the interpretation is "The wine matches my profile, but perhaps I don't like this style today."</li>
+    </ul>
+
+    <h3>6.2 Sigmoid Normalization</h3>
+    <p>
+      Raw Euclidean distance is unintuitive. We use a <strong>Logistic Sigmoid Transformation</strong> to map distance to a percentage.
+    </p>
+
+    <div class="formula">
+      Score = 1 / (1 + e<sup>k(d - d₀)</sup>)
+    </div>
+
+    <p>
+      Where:
+    </p>
+    <ul>
+      <li><strong>d:</strong> Asymmetric Distance.</li>
+      <li><strong>d₀:</strong> Pivot point (Distance where Score = 50%).</li>
+      <li><strong>k:</strong> Slope (Sensitivity).</li>
+    </ul>
+
+    <h2>7. Calibration: Solving the "Individual Cutscore"</h2>
+    <p>
+      Users have different internal baselines for satisfaction. To avoid forcing users to manually set filters (e.g., "Only show me 90% matches"), we employ <strong>Adaptive Pivot Scaling</strong>.
+    </p>
+    <p>
+      We dynamically adjust the pivot point d₀ in the scoring formula based on the user's rating history.
+    </p>
+    <ul>
+      <li><strong>For the "Picky" User:</strong> We <strong>decrease</strong> d₀. The system becomes stricter; a wine must be mathematically closer to achieve a "90% Match."</li>
+      <li><strong>For the "Easy-Going" User:</strong> We <strong>increase</strong> d₀. The system relaxes, revealing a wider variety of "Good Matches."</li>
+    </ul>
+    <p>
+      This calibration ensures that <strong>"90% Match" always means "Strong Recommendation"</strong>, regardless of whether the user is a critic or an enthusiast.
+    </p>
+
+    <h2>8. Dynamic Evolution: Bounded Asymptotic Learning</h2>
+    <p>
+      As users rate wines, their profile must evolve. We employ <strong>Bounded Asymptotic Learning</strong> to update the user vector U.
+    </p>
+
+    <div class="formula">
+      U<sub>new</sub> = U<sub>old</sub> + η · dampening · (W - U<sub>old</sub>)
+    </div>
+
+    <p>
+      <strong>Saturation Dampening:</strong> To prevent "lock-in" at the extremes (1.0 or 5.0), we apply a dampening factor with a <strong>hard floor</strong> of 0.25. This ensures that even if a user is currently at an extreme (e.g., Tannin=5.0), consistent negative feedback will eventually pull them back toward the center.
+    </p>
+
+    <!-- References Section -->
+    <div class="references">
+      <h4>References</h4>
+      <ol>
+        <li>Cold-Start Problem in Recommender Systems. <em>Schein et al., 2002</em>.</li>
+        <li>Vinotype & Sensory Segmentation. <em>Hanni, 2012</em>.</li>
+        <li>Asymmetric Impact in Attribute Performance. <em>Mikulic et al., 2008</em>.</li>
+        <li>Manifold Learning & Archetypes. <em>Cutler et al., 1994</em>.</li>
+        <li>PROP Taster Status and Food Preference. <em>Tepper et al., 2009</em>.</li>
+        <li>Chemical composition of wine. <em>Waterhouse et al., 2016</em>.</li>
+      </ol>
+
+      <h4>Works Cited</h4>
+      <ol>
+        <li>Introduction to Recommender Systems - Oracle, accessed November 28, 2025, <a href="https://www.oracle.com/a/ocom/docs/oracle-ds-introduction-to-recommendation-engines.pdf" target="_blank">https://www.oracle.com/a/ocom/docs/oracle-ds-introduction-to-recommendation-engines.pdf</a></li>
+        <li>Current Research Related to Wine Sensory Perception Since 2010 - MDPI, accessed November 28, 2025, <a href="https://www.mdpi.com/2306-5710/6/3/47" target="_blank">https://www.mdpi.com/2306-5710/6/3/47</a></li>
+        <li>When to use cosine simlarity over Euclidean similarity - Data Science Stack Exchange, accessed November 28, 2025, <a href="https://datascience.stackexchange.com/questions/27726/when-to-use-cosine-simlarity-over-euclidean-similarity" target="_blank">https://datascience.stackexchange.com/questions/27726/when-to-use-cosine-simlarity-over-euclidean-similarity</a></li>
+        <li>Constraint Satisfaction Problem in AI - AlmaBetter, accessed November 28, 2025, <a href="https://www.almabetter.com/bytes/tutorials/artificial-intelligence/constraint-satisfaction-problem-in-ai" target="_blank">https://www.almabetter.com/bytes/tutorials/artificial-intelligence/constraint-satisfaction-problem-in-ai</a></li>
+        <li>Manifold Learning in Machine Learning | by Hey Amit - Medium, accessed November 28, 2025, <a href="https://medium.com/@heyamit10/manifold-learning-in-machine-learning-e008e480d036" target="_blank">https://medium.com/@heyamit10/manifold-learning-in-machine-learning-e008e480d036</a></li>
+        <li>Nearest centroid classifier - Wikipedia, accessed November 28, 2025, <a href="https://en.wikipedia.org/wiki/Nearest_centroid_classifier" target="_blank">https://en.wikipedia.org/wiki/Nearest_centroid_classifier</a></li>
+        <li>Asymmetrical impact of service attribute performance on consumer satisfaction - NIH, accessed November 28, 2025, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9243898/" target="_blank">https://pmc.ncbi.nlm.nih.gov/articles/PMC9243898/</a></li>
+      </ol>
+    </div>
+
+    <div class="highlight-box" style="margin-top: var(--spacing-2xl);">
+      <h3>Questions or Feedback?</h3>
+      <p style="margin-bottom: 0;">
+        If you have technical questions about this implementation, want to discuss our methodology, or have suggestions for improvement, reach out to us at <a href="mailto:support@unwyned.com" style="color: var(--color-signal-green);">support@unwyned.com</a>.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 32px; margin-bottom: var(--spacing-md);">
+          <p style="color: var(--color-machined-steel); font-size: 0.95rem;">
+            Wine recommendations without the snobbery.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>The Intel</h4>
+          <ul class="footer-links">
+            <li><a href="algorithm.html">How It Works</a></li>
+            <li><a href="architecture.html">Technical Architecture</a></li>
+            <li><a href="algorithm.html#ranking">Ranking System</a></li>
+            <li><a href="algorithm.html#privacy">Data Privacy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="mailto:support@unwyned.com">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>The Outfit</h4>
+          <ul class="footer-links">
+            <li><a href="https://inceptyon.com" target="_blank" rel="noopener">Inceptyon Labs</a></li>
+            <li><a href="mailto:hello@inceptyon.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2024 Inceptyon Labs LLC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/nav.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy. Welcome to the operation.">
+  <meta name="keywords" content="wine app, wine scanner, wine recommendations, menu scanner, wine ratings, wine discovery">
+  <meta name="author" content="Inceptyon Labs">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Unwyned - The Wine App With an Edge">
+  <meta property="og:description" content="Not your typical wine app. Scan menus, get real recommendations. Welcome to the operation.">
+  <meta property="og:url" content="https://unwyned.com">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unwyned - The Wine App With an Edge">
+  <meta name="twitter:description" content="Wine recommendations without the snobbery.">
+
+  <title>Unwyned - The Wine App With an Edge</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/glitch.css">
+</head>
+<body>
+
+  <!-- Unwyned Front (Corporate Facade) -->
+  <div id="unwyned-front">
+    <div style="text-align: center;">
+      <div class="front-logo">unwyned</div>
+      <div class="front-tagline">Relaxation Solutions</div>
+    </div>
+  </div>
+
+  <!-- The Racket Reality -->
+  <div id="racket-reality">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container navbar-container">
+        <a href="index.html" class="navbar-logo">
+          <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 40px;">
+        </a>
+
+        <button class="navbar-toggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="navbar-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="algorithm.html">The Intel</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="#download" class="btn btn-primary" style="padding: 0.5rem 1rem;">Download</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-tagline">Welcome to the operation</div>
+        <h1 class="hero-title">Wine Recommendations<br>Without the Snobbery</h1>
+        <p class="hero-description">
+          Point your camera at any wine menu and get instant, personalized recommendations.
+          No sommelier required. No 100-point scales. No making you feel stupid.
+        </p>
+        <div class="btn-group" style="justify-content: center;">
+          <a href="#download" class="btn btn-primary btn-large">Get the App</a>
+          <a href="algorithm.html" class="btn btn-outline btn-large">How It Works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Do -->
+    <section class="section bg-concrete">
+      <div class="container">
+        <h2 class="text-center" style="margin-bottom: var(--spacing-2xl);">The Operation</h2>
+
+        <div class="grid grid-3">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="feature-title">Scan the Menu</h3>
+            <p class="feature-description">
+              Point your camera at any wine list—restaurant, bar, wine shop. Our AI reads it all in seconds.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Get Ranked Picks</h3>
+            <p class="feature-description">
+              Every wine gets ranked for YOUR taste. Top picks rise. Wines you'll hate get buried. Simple.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Get The Intel</h3>
+            <p class="feature-description">
+              Real info in plain English. No "notes of pencil shavings." Just what you need to know.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Deep Dive -->
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-2" style="gap: var(--spacing-3xl);">
+
+          <div>
+            <h2>No Sommelier Required</h2>
+            <p>
+              Take a quick quiz about your taste preferences. Sweet or dry? Bold or subtle?
+              We build a profile that makes sense, then match you to wines you'll genuinely enjoy.
+            </p>
+            <p>
+              Think of it as having a connect on the inside—one who actually knows what you like.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Your Taste Profile</h3>
+            <div class="card-body">
+              <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: var(--spacing-sm); display: flex; align-items: center; gap: var(--spacing-sm);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Sweet vs. Dry preferences
+                </li>
+                <li style="margin-bottom: var(--spacing-sm); display: flex; align-items: center; gap: var(--spacing-sm);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Body weight (Light to Full)
+                </li>
+                <li style="margin-bottom: var(--spacing-sm); display: flex; align-items: center; gap: var(--spacing-sm);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Flavor intensity
+                </li>
+                <li style="margin-bottom: var(--spacing-sm); display: flex; align-items: center; gap: var(--spacing-sm);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Tannin tolerance
+                </li>
+                <li style="margin-bottom: var(--spacing-sm); display: flex; align-items: center; gap: var(--spacing-sm);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Gets smarter over time
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Build Your Stash</h3>
+            <div class="card-body">
+              <p>
+                Track wines you've tried. Rate them your way. Watch your taste profile get smarter over time.
+              </p>
+              <p>
+                Earn your stripes for exploring new territory. Rank up from Bootlegger to Boss.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h2>Privacy First</h2>
+            <p>
+              Your photos never leave your device—we extract the text locally and only send that for ranking.
+            </p>
+            <p>
+              If a label's too tough to read, you choose whether to send the image. No selling your data.
+              No creepy tracking. Your business is your business.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- What We're Not -->
+    <section class="section bg-concrete">
+      <div class="container text-center">
+        <h2 style="margin-bottom: var(--spacing-2xl);">What We're NOT</h2>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h4 class="card-title">Not an Encyclopedia</h4>
+            <p class="card-body">
+              We're not here to catalog your thousand-bottle cellar or debate terroir at parties.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4 class="card-title">Not Another 100-Point System</h4>
+            <p class="card-body">
+              We don't rate wines on arbitrary scales. We rank them for YOUR taste. That's it.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4 class="card-title">Not Making You Feel Stupid</h4>
+            <p class="card-body">
+              Wine culture has enough gatekeepers. We're here to help, not lecture.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="section">
+      <div class="container text-center">
+        <h2 style="margin-bottom: var(--spacing-md);">Available Now</h2>
+        <p style="font-size: 1.25rem; color: var(--color-machined-steel); margin-bottom: var(--spacing-2xl);">
+          Whether you're at a steakhouse, a wine bar, or lost in the grocery store wine aisle—<br>
+          Unwyned helps you find something good without the anxiety.
+        </p>
+
+        <div class="btn-group" style="justify-content: center; margin-bottom: var(--spacing-xl);">
+          <a href="https://apps.apple.com/app/unwyned" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+            Download on iOS
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.inceptyon.unwyned" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+            Get it on Android
+          </a>
+        </div>
+
+        <p style="color: var(--color-rusted-ibeam); font-family: var(--font-data); letter-spacing: 0.1em;">
+          Relax. We'll find your next glass.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+
+          <div class="footer-section">
+            <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 32px; margin-bottom: var(--spacing-md);">
+            <p style="color: var(--color-machined-steel); font-size: 0.95rem;">
+              Wine recommendations without the snobbery. Point, scan, drink.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h4>The Intel</h4>
+            <ul class="footer-links">
+              <li><a href="algorithm.html">How It Works</a></li>
+              <li><a href="architecture.html">Technical Architecture</a></li>
+              <li><a href="algorithm.html#ranking">Ranking System</a></li>
+              <li><a href="algorithm.html#privacy">Data Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms & Conditions</a></li>
+              <li><a href="mailto:support@unwyned.com">Support</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>The Outfit</h4>
+            <ul class="footer-links">
+              <li><a href="https://inceptyon.com" target="_blank" rel="noopener">Inceptyon Labs</a></li>
+              <li><a href="mailto:hello@inceptyon.com">Contact</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 Inceptyon Labs LLC. All rights reserved.</p>
+          <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">
+            Drink responsibly. Must be 21+ to use this app.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/glitch.js"></script>
+  <script src="js/nav.js"></script>
+
+</body>
+</html>
