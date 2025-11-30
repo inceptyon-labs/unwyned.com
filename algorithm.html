@@ -133,7 +133,7 @@
   <nav class="navbar">
     <div class="container navbar-container">
       <a href="index.html" class="navbar-logo">
-        <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 40px;">
+        <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 60px;">
       </a>
 
       <button class="navbar-toggle" aria-label="Toggle navigation menu">
@@ -359,7 +359,7 @@ score = 1 / (1 + e^(slope × (distance - pivot)))
 
     <h2 id="ranking">4. The Ranking System</h2>
     <p>
-      We don't use a 100-point scale. We use <strong>The Bootlegger's Quality Scale</strong>—a 1-5 knuckle system inspired by Prohibition-era slang.
+      We don't use a 100-point scale. We use <strong>The Bootlegger's Quality Scale</strong>—a 1-5 barrel system inspired by Prohibition-era slang.
     </p>
 
     <table class="dimension-table">
@@ -372,27 +372,27 @@ score = 1 / (1 + e^(slope × (distance - pivot)))
       </thead>
       <tbody>
         <tr>
-          <td>1 Knuckle</td>
+          <td>1 Barrel</td>
           <td><strong>The Swill</strong></td>
           <td>Undrinkable. Drain pour. Gas station wine.</td>
         </tr>
         <tr>
-          <td>2 Knuckles</td>
+          <td>2 Barrels</td>
           <td><strong>The Hustle</strong></td>
           <td>Trying but failing. Good for cooking, not drinking.</td>
         </tr>
         <tr>
-          <td>3 Knuckles</td>
+          <td>3 Barrels</td>
           <td><strong>The Daily Grind</strong></td>
           <td>Solid. Does the job. A working person's pour.</td>
         </tr>
         <tr>
-          <td>4 Knuckles</td>
+          <td>4 Barrels</td>
           <td><strong>The Heavy Hitter</strong></td>
           <td>Excellent. Commands respect. Worth the price.</td>
         </tr>
         <tr>
-          <td>5 Knuckles</td>
+          <td>5 Barrels</td>
           <td><strong>The Don</strong></td>
           <td>Perfection. You run the block with this bottle.</td>
         </tr>
@@ -413,12 +413,12 @@ new_profile = old_profile + learning_rate × dampening × (wine_profile - old_pr
 // - dampening: Prevents "lock-in" at extremes (min 0.25)
     </div>
 
-    <h3>Positive Ratings (4-5 Knuckles)</h3>
+    <h3>Positive Ratings (4-5 Barrels)</h3>
     <p>
       We shift your taste vector <strong>toward</strong> the wine's profile. If you love a wine that's more tannic than your current preference (e.g., you're at 3.0, wine is 4.5), we nudge your tannin tolerance up.
     </p>
 
-    <h3>Negative Ratings (1-2 Knuckles)</h3>
+    <h3>Negative Ratings (1-2 Barrels)</h3>
     <p>
       We shift your vector <strong>away</strong> from the wine's profile. Hated an oaky Chardonnay (wine oak = 4.5, you're at 3.0)? We'll lower your oak preference toward 2.5 or lower.
     </p>
@@ -529,7 +529,7 @@ new_profile = old_profile + learning_rate × dampening × (wine_profile - old_pr
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 32px; margin-bottom: var(--spacing-md);">
+          <img src="assets/images/logo-racket.png" alt="The Racket" style="height: 48px; margin-bottom: var(--spacing-md);">
           <p style="color: var(--color-machined-steel); font-size: 0.95rem;">
             Wine recommendations without the snobbery.
           </p>

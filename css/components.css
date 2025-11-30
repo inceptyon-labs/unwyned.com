@@ -122,7 +122,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-sm) 0;
 }
 
 .navbar-container {
