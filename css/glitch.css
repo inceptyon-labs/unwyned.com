@@ -17,21 +17,18 @@
   transition: opacity 0.3s ease;
 }
 
-#unwyned-front .front-logo {
-  font-family: 'Georgia', serif;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  color: #9E9E9E;
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  text-transform: lowercase;
-  font-style: italic;
+#unwyned-front .front-logo-img {
+  max-width: min(80vw, 500px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 #unwyned-front .front-tagline {
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-primary);
   font-size: clamp(0.9rem, 2vw, 1.2rem);
   color: #BDBDBD;
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-lg);
   letter-spacing: 0.2em;
   font-weight: 300;
 }
