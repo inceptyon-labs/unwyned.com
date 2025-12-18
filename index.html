@@ -11,14 +11,27 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Unwyned - The Wine App With an Edge">
   <meta property="og:description" content="Not your typical wine app. Scan menus, get real recommendations. Welcome to the operation.">
-  <meta property="og:url" content="https://unwyned.com">
+  <meta property="og:url" content="https://unwyned.com/">
+  <meta property="og:image" content="https://unwyned.com/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Unwyned">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Unwyned - The Wine App With an Edge">
   <meta name="twitter:description" content="Wine recommendations without the snobbery.">
+  <meta name="twitter:image" content="https://unwyned.com/assets/images/og-image.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://unwyned.com/">
 
   <title>Unwyned - The Wine App With an Edge</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +42,70 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/glitch.css">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://unwyned.com/#organization",
+        "name": "Inceptyon Labs",
+        "url": "https://inceptyon.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://unwyned.com/assets/images/logo-fullword-light.png"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://unwyned.com/#website",
+        "url": "https://unwyned.com/",
+        "name": "Unwyned",
+        "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy.",
+        "publisher": {
+          "@id": "https://unwyned.com/#organization"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://unwyned.com/#app",
+        "name": "Unwyned",
+        "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy.",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": ["iOS", "Android"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "100"
+        },
+        "downloadUrl": [
+          "https://apps.apple.com/app/unwyned",
+          "https://play.google.com/store/apps/details?id=com.inceptyon.unwyned"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://unwyned.com/#webpage",
+        "url": "https://unwyned.com/",
+        "name": "Unwyned - The Wine App With an Edge",
+        "isPartOf": {
+          "@id": "https://unwyned.com/#website"
+        },
+        "about": {
+          "@id": "https://unwyned.com/#app"
+        },
+        "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy."
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
