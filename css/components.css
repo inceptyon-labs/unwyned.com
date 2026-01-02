@@ -651,9 +651,13 @@
 
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--spacing-xl);
   margin-bottom: var(--spacing-2xl);
+}
+
+.footer-section {
+  min-width: 0;
 }
 
 @media (max-width: 900px) {
