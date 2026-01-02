@@ -144,16 +144,34 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero grain-overlay vignette">
+      <!-- Spotlight effect behind content (decorative) -->
+      <div class="hero-spotlight" aria-hidden="true"></div>
+
+      <!-- Animated background elements (decorative) -->
+      <div class="hero-bg-elements" aria-hidden="true">
+        <div class="hero-grid"></div>
+        <div class="hero-scanline"></div>
+      </div>
+
       <div class="hero-content">
+        <!-- Status bar (decorative) -->
+        <div class="hero-status" aria-hidden="true">
+          <span class="led"></span>
+          <span class="status-text">OPERATION ACTIVE</span>
+        </div>
+
         <div class="hero-tagline">Welcome to the operation</div>
-        <h1 class="hero-title">Wine Recommendations<br>Without the Snobbery</h1>
+        <h1 class="hero-title glitch-text" data-text="Wine Recommendations Without the Snobbery">
+          Wine Recommendations<br>Without the Snobbery
+        </h1>
         <p class="hero-description">
           Point your camera at any wine menu and get instant, personalized recommendations.
           No sommelier required. No 100-point scales. No making you feel stupid.
         </p>
+
         <div class="btn-group" style="justify-content: center;">
-          <a href="#download" class="btn btn-primary btn-large">Get the App</a>
+          <a href="#download" class="btn btn-primary btn-large btn-glow">Get the App</a>
           <a href="algorithm.html" class="btn btn-outline btn-large">How It Works</a>
         </div>
       </div>
@@ -319,24 +337,33 @@
     </section>
 
     <!-- Download Section -->
-    <section id="download" class="section">
+    <section id="download" class="section download-section">
       <div class="container text-center">
+        <!-- Spotlight effect (decorative) -->
+        <div class="download-spotlight" aria-hidden="true"></div>
+
         <h2 style="margin-bottom: var(--spacing-md);">Available Now</h2>
-        <p style="font-size: 1.25rem; color: var(--color-machined-steel); margin-bottom: var(--spacing-2xl);">
+        <p class="download-subtitle">
           Whether you're at a steakhouse, a wine bar, or lost in the grocery store wine aisle—<br>
           Unwyned helps you find something good without the anxiety.
         </p>
 
-        <div class="btn-group" style="justify-content: center; margin-bottom: var(--spacing-xl);">
-          <a href="https://apps.apple.com/app/unwyned" class="btn btn-primary btn-large" target="_blank" rel="noopener">
-            Download on iOS
+        <div class="app-buttons">
+          <a href="https://apps.apple.com/app/unwyned" class="app-button" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="135" height="40" viewBox="0 0 135 40">
+              <rect width="135" height="40" rx="5" fill="#000"/>
+              <text x="67.5" y="28" fill="#fff" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="600">Download on iOS</text>
+            </svg>
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.inceptyon.unwyned" class="btn btn-primary btn-large" target="_blank" rel="noopener">
-            Get it on Android
+          <a href="https://play.google.com/store/apps/details?id=com.inceptyon.unwyned" class="app-button" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="135" height="40" viewBox="0 0 135 40">
+              <rect width="135" height="40" rx="5" fill="#000"/>
+              <text x="67.5" y="28" fill="#fff" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="600">Get it on Android</text>
+            </svg>
           </a>
         </div>
 
-        <p style="color: var(--color-rusted-ibeam); font-family: var(--font-data); letter-spacing: 0.1em;">
+        <p class="download-tagline">
           Relax. We'll find your next glass.
         </p>
       </div>
@@ -384,7 +411,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2024 Inceptyon Labs LLC. All rights reserved.</p>
+          <p>&copy; 2025 Inceptyon Labs LLC. All rights reserved.</p>
           <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">
             Drink responsibly. Must be 21+ to use this app.
           </p>
@@ -397,6 +424,7 @@
   <!-- Scripts -->
   <script src="js/glitch.js"></script>
   <script src="js/nav.js"></script>
+  <script src="js/scroll-animations.js"></script>
 
 </body>
 </html>
