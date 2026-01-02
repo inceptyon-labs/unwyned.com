@@ -667,8 +667,8 @@
 
 .footer-content {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--spacing-xl);
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: var(--spacing-lg);
   margin-bottom: var(--spacing-2xl);
 }
 
@@ -677,23 +677,18 @@
 }
 
 /* Footer brand section */
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-}
-
 .footer-logo {
   height: 48px;
   width: auto;
-  margin-bottom: var(--spacing-md);
+  max-width: 120px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .footer-tagline {
-  color: var(--color-gunmetal);
-  font-size: 0.85rem;
+  color: var(--color-machined-steel);
+  font-size: 0.9rem;
   line-height: 1.5;
-  font-family: var(--font-data);
-  letter-spacing: 0.02em;
+  margin: 0;
 }
 
 @media (max-width: 900px) {
