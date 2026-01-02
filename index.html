@@ -3,39 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy. Welcome to the operation.">
-  <meta name="keywords" content="wine app, wine scanner, wine recommendations, menu scanner, wine ratings, wine discovery">
+
+  <!-- Primary Meta Tags -->
+  <title>Unwyned - The Wine App With an Edge | Free Wine Recommendations</title>
+  <meta name="description" content="Unwyned: The free wine app that scans restaurant menus and recommends wines you'll love. AI-powered taste profiling, no sommelier required. Download for iOS and Android.">
+  <meta name="keywords" content="wine app, wine scanner, wine recommendations, menu scanner, wine ratings, wine discovery, wine pairing app, best wine app">
   <meta name="author" content="Inceptyon Labs">
-
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Unwyned - The Wine App With an Edge">
-  <meta property="og:description" content="Not your typical wine app. Scan menus, get real recommendations. Welcome to the operation.">
-  <meta property="og:url" content="https://unwyned.com/">
-  <meta property="og:image" content="https://unwyned.com/assets/images/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="Unwyned">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Unwyned - The Wine App With an Edge">
-  <meta name="twitter:description" content="Wine recommendations without the snobbery.">
-  <meta name="twitter:image" content="https://unwyned.com/assets/images/og-image.png">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://unwyned.com/">
 
-  <title>Unwyned - The Wine App With an Edge</title>
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Unwyned - The Wine App With an Edge">
+  <meta property="og:description" content="Scan wine menus, get personalized recommendations. No sommelier required.">
+  <meta property="og:url" content="https://unwyned.com/">
+  <meta property="og:image" content="https://unwyned.com/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Unwyned app interface showing wine recommendations">
+  <meta property="og:site_name" content="Unwyned">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unwyned - The Wine App With an Edge">
+  <meta name="twitter:description" content="Wine recommendations without the snobbery. Scan menus, find wines you'll love.">
+  <meta name="twitter:image" content="https://unwyned.com/assets/images/og-image.png">
+  <meta name="twitter:image:alt" content="Unwyned app interface showing wine recommendations">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 
-  <!-- Fonts -->
+  <!-- PWA / Mobile -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1e2a1e">
+  <meta name="msapplication-TileColor" content="#1e2a1e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unwyned">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Preconnect / DNS Prefetch -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="//apps.apple.com">
+  <link rel="dns-prefetch" href="//play.google.com">
+
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="preload" href="css/components.css" as="style">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
@@ -55,8 +78,11 @@
         "url": "https://inceptyon.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://unwyned.com/assets/images/logo-fullword-light.png"
-        }
+          "url": "https://unwyned.com/assets/images/logo-fullword-light.png",
+          "width": 600,
+          "height": 60
+        },
+        "sameAs": []
       },
       {
         "@type": "WebSite",
@@ -69,26 +95,36 @@
         }
       },
       {
-        "@type": "SoftwareApplication",
+        "@type": "MobileApplication",
         "@id": "https://unwyned.com/#app",
         "name": "Unwyned",
         "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy.",
         "applicationCategory": "LifestyleApplication",
-        "operatingSystem": ["iOS", "Android"],
+        "operatingSystem": "iOS, Android",
         "offers": {
           "@type": "Offer",
           "price": "0",
-          "priceCurrency": "USD"
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
         },
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.8",
-          "ratingCount": "100"
+          "ratingCount": "100",
+          "bestRating": "5",
+          "worstRating": "1"
         },
         "downloadUrl": [
           "https://apps.apple.com/app/unwyned",
           "https://play.google.com/store/apps/details?id=com.inceptyon.unwyned"
-        ]
+        ],
+        "featureList": [
+          "AI-powered menu scanning",
+          "8-dimensional taste profiling",
+          "Personalized wine recommendations",
+          "Privacy-first architecture"
+        ],
+        "screenshot": "https://unwyned.com/assets/images/og-image.png"
       },
       {
         "@type": "WebPage",
@@ -101,18 +137,51 @@
         "about": {
           "@id": "https://unwyned.com/#app"
         },
-        "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy."
+        "description": "Wine recommendations without the snobbery. Scan menus, discover your taste, find wines you'll actually enjoy.",
+        "breadcrumb": {
+          "@id": "https://unwyned.com/#breadcrumb"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://unwyned.com/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://unwyned.com/"
+          }
+        ]
       }
     ]
   }
   </script>
+
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-signal-green);
+      color: var(--color-bg-primary);
+      padding: 8px 16px;
+      z-index: 10000;
+      transition: top 0.3s;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Unwyned Front (Corporate Facade) -->
   <div id="unwyned-front">
     <div style="text-align: center;">
-      <img src="assets/images/logo-fullword-light.png" alt="Unwyned" class="front-logo-img">
+      <img src="assets/images/logo-fullword-light.png" alt="Unwyned - Wine Recommendations App" class="front-logo-img" fetchpriority="high">
       <div class="front-tagline">Relaxation Solutions</div>
     </div>
   </div>
@@ -120,6 +189,7 @@
   <!-- The Racket Reality -->
   <div id="racket-reality">
 
+    <header>
     <!-- Navigation -->
     <nav class="navbar">
       <div class="container navbar-container">
@@ -142,7 +212,9 @@
         </ul>
       </div>
     </nav>
+    </header>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section class="hero grain-overlay vignette">
       <!-- Spotlight effect behind content (decorative) -->
@@ -185,7 +257,7 @@
         <div class="grid grid-3">
           <div class="feature-item">
             <div class="feature-icon feature-icon--image">
-              <img src="assets/images/icon-scan.png" alt="Scan icon" width="120" height="120">
+              <img src="assets/images/icon-scan.png" alt="Wine menu scanning feature - photograph any restaurant wine list" width="120" height="120" loading="lazy">
             </div>
             <h3 class="feature-title">Scan the Menu</h3>
             <p class="feature-description">
@@ -195,7 +267,7 @@
 
           <div class="feature-item">
             <div class="feature-icon feature-icon--image">
-              <img src="assets/images/icon-rank.png" alt="Ranking icon" width="120" height="120">
+              <img src="assets/images/icon-rank.png" alt="Personalized wine ranking based on your taste profile" width="120" height="120" loading="lazy">
             </div>
             <h3 class="feature-title">Get Ranked Picks</h3>
             <p class="feature-description">
@@ -205,7 +277,7 @@
 
           <div class="feature-item">
             <div class="feature-icon feature-icon--image">
-              <img src="assets/images/icon-intel.png" alt="Intel icon" width="120" height="120">
+              <img src="assets/images/icon-intel.png" alt="Wine intelligence - plain English descriptions without jargon" width="120" height="120" loading="lazy">
             </div>
             <h3 class="feature-title">Get The Intel</h3>
             <p class="feature-description">
@@ -359,6 +431,7 @@
         </p>
       </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -366,7 +439,7 @@
         <div class="footer-content">
 
           <div class="footer-section">
-            <img src="assets/images/logo-racket.png" alt="The Racket" class="footer-logo">
+            <img src="assets/images/logo-racket.png" alt="Unwyned app logo - stylized wine glass in speakeasy aesthetic" class="footer-logo" loading="lazy">
             <p class="footer-tagline">
               Wine recommendations without the snobbery. Point, scan, drink.
             </p>
@@ -402,7 +475,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2025 Inceptyon Labs LLC. All rights reserved.</p>
+          <p>&copy; 2026 Inceptyon Labs LLC. All rights reserved.</p>
           <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">
             Drink responsibly. Must be 21+ to use this app.
           </p>
@@ -413,9 +486,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/glitch.js"></script>
-  <script src="js/nav.js"></script>
-  <script src="js/scroll-animations.js"></script>
+  <script src="js/glitch.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/scroll-animations.js" defer></script>
 
 </body>
 </html>

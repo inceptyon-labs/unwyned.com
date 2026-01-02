@@ -1,5 +1,17 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
+
+# Allow search engines to access assets for rendering
+Allow: /assets/images/
+Allow: /css/
+Allow: /js/
+
+# Block any admin or internal directories if they exist
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
 
 Sitemap: https://unwyned.com/sitemap.xml
+
+# Crawl-delay for responsible crawling
+Crawl-delay: 1
