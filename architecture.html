@@ -26,7 +26,7 @@
   <meta property="og:site_name" content="Unwyned">
   <meta property="og:locale" content="en_US">
   <meta property="article:published_time" content="2024-11-30T00:00:00+00:00">
-  <meta property="article:modified_time" content="2026-01-02T00:00:00+00:00">
+  <meta property="article:modified_time" content="2026-01-03T00:00:00+00:00">
   <meta property="article:author" content="Inceptyon Labs">
   <meta property="article:section" content="Technology">
   <meta property="article:tag" content="wine recommendation engine">
@@ -81,7 +81,7 @@
         "headline": "The Architecture of Taste: Engineering a Cold-Start Wine Recommender",
         "description": "Technical documentation for Unwyned's cold-start wine recommendation engine with mathematical formulations and engineering specifications.",
         "datePublished": "2024-11-30",
-        "dateModified": "2026-01-02",
+        "dateModified": "2026-01-03",
         "author": {
           "@type": "Organization",
           "name": "Inceptyon Labs",
@@ -310,7 +310,7 @@
     <a href="algorithm.html" class="back-link">← Back to The Intel</a>
 
     <h1>The Architecture of Taste: Engineering a Cold-Start Wine Recommender</h1>
-    <p class="version"><strong>Version 3.0</strong> | Technical Documentation</p>
+    <p class="version"><strong>Version 4.0</strong> | Technical Documentation</p>
 
     <div class="highlight-box">
       <p style="margin-bottom: 0;">
@@ -535,6 +535,10 @@
       This ensures that "offending" the palate is penalized nearly twice as heavily as simply "boring" the palate.
     </p>
 
+    <div class="info-box">
+      <strong>Note:</strong> The overshoot penalty is further modulated by the user's Sensitivity scalar (S) for harshness dimensions. See <a href="#sensitivity-modulation" style="color: var(--color-signal-green);">Section 9.1</a> for details.
+    </div>
+
     <h2>6. Scoring Philosophy: Match vs. Confidence</h2>
     <p>
       A critical decision in our UX architecture is the presentation of the recommendation score. We explicitly utilize a <strong>"Match Score"</strong> rather than a "Confidence Score" or "Predicted Rating."
@@ -591,6 +595,127 @@
     <p>
       <strong>Saturation Dampening:</strong> To prevent "lock-in" at the extremes (1.0 or 5.0), we apply a dampening factor with a <strong>hard floor</strong> of 0.25. This ensures that even if a user is currently at an extreme (e.g., Tannin=5.0), consistent negative feedback will eventually pull them back toward the center.
     </p>
+
+    <h2>9. User-Level Scalars: Sensitivity (S) and Exploration (E)</h2>
+    <p>
+      Beyond the 8-dimensional taste vector, each user possesses two additional scalar parameters that modulate how recommendations are generated and scored.
+    </p>
+
+    <h3 id="sensitivity-modulation">9.1 Sensitivity (S) ∈ [0, 1]</h3>
+    <p>
+      <strong>Purpose:</strong> Captures individual tolerance for sensory intensity in "harshness" dimensions (tannin, acidity, body, oak, spice). A sensitive user (S → 1) experiences bitter compounds more intensely than a tolerant user (S → 0).
+    </p>
+
+    <h4>Seeding from Quiz</h4>
+    <p>
+      S is initialized from the composite harshness profile derived from quiz answers:
+    </p>
+    <div class="formula">
+      S<sub>initial</sub> = clamp((tannin + acidity + body + oak + spice) / 5 - 2.5, 0, 1)
+    </div>
+    <p>
+      Users with above-average harshness preferences seed S ≈ 0.5; extreme preferences push toward 1.0.
+    </p>
+
+    <h4>Modulating Asymmetric Penalties</h4>
+    <p>
+      The base overshoot penalty (1.4×) is amplified for sensitive users on harshness dimensions:
+    </p>
+    <div class="formula">
+      effectivePenalty<sub>d</sub> = 1.4 × (1 + α<sub>d</sub> × S)
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>α (Amplification Factor)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Tannin</td><td>0.8</td></tr>
+        <tr><td>Acidity</td><td>0.7</td></tr>
+        <tr><td>Body</td><td>0.5</td></tr>
+        <tr><td>Oak</td><td>0.4</td></tr>
+        <tr><td>Spice</td><td>0.3</td></tr>
+        <tr><td>Other dimensions</td><td>0.0</td></tr>
+      </tbody>
+    </table>
+    <p>
+      A user with S = 1 and a wine overshooting tannin by 1.0 pays: 1.4 × 1.8 = <strong>2.52</strong> penalty, compared to 1.4 for S = 0.
+    </p>
+
+    <h4>Learning S from Ratings</h4>
+    <p>
+      When a user rates a wine poorly and the wine overshoots their profile on harshness dimensions, S increases:
+    </p>
+    <div class="formula">
+      residual = (expectedRating - actualRating) / 4<br>
+      S<sub>new</sub> = clamp(S<sub>old</sub> + γ × residual × weightedOvershoot, 0, 1)
+    </div>
+    <p>
+      Where γ = 0.08 is the learning rate (decays with confidence), and weightedOvershoot is the normalized overshoot across harshness dimensions.
+    </p>
+
+    <h3>9.2 Exploration (E) ∈ [0, 1]</h3>
+    <p>
+      <strong>Purpose:</strong> Controls willingness to venture beyond established preferences. High-E users receive "wildcard" recommendations from outside their comfort zone.
+    </p>
+
+    <h4>Seeding from Quiz</h4>
+    <p>
+      E is initialized from quiz answers probing adventure-seeking behavior:
+    </p>
+    <div class="formula">
+      E<sub>initial</sub> = (adventure_answer + novel_food_answer) / 2
+    </div>
+    <p>
+      Normalized to [0, 1] where 0.5 represents moderate exploration appetite.
+    </p>
+
+    <h4>Wildcard Injection</h4>
+    <p>
+      The number of wildcards injected into recommendations is determined by:
+    </p>
+    <div class="formula">
+      effectiveE = E × (1 - 0.5 × S)  <em>(Sensitive users get fewer wildcards)</em><br>
+      wildcardCount = round(effectiveE × 2)
+    </div>
+    <p>
+      Wildcards are selected from wines with:
+    </p>
+    <ul>
+      <li>Match score in the "interesting range": 35% – 65%</li>
+      <li>noveltyDistance ≥ 3.0 (significantly different from user's profile)</li>
+    </ul>
+
+    <h4>Learning E from Wildcard Ratings</h4>
+    <p>
+      When users rate wildcards, E adjusts based on whether they exceeded the baseline expectation (60%):
+    </p>
+    <div class="formula">
+      r = (rating - 1) / 4  <em>(Normalized to [0, 1])</em><br>
+      E<sub>new</sub> = clamp(E<sub>old</sub> + γ × (r - 0.6) × noveltyFactor, 0, 1)
+    </div>
+    <p>
+      Where γ = 0.06, noveltyFactor = min(noveltyDistance / 3.0, 1.0), and ratings above 3★ (r = 0.5) push E up while 1-2★ ratings push E down.
+    </p>
+
+    <h3>9.3 S+E Interaction</h3>
+    <p>
+      Sensitivity suppresses exploration to protect sensitive users from potentially unpleasant wildcard experiences. The formula effectiveE = E × (1 - 0.5 × S) ensures:
+    </p>
+    <ul>
+      <li>A user with S = 0, E = 1 gets full exploration (2 wildcards)</li>
+      <li>A user with S = 1, E = 1 gets reduced exploration (1 wildcard)</li>
+      <li>A user with S = 1, E = 0 gets no wildcards regardless of S</li>
+    </ul>
+
+    <div class="info-box">
+      <h4>Implementation Note</h4>
+      <p style="margin-bottom: 0;">
+        S and E are stored locally with confidence counters (0-30) that decay learning rates over time. This prevents early ratings from locking users into extreme values while still allowing gradual refinement.
+      </p>
+    </div>
 
     <!-- References Section -->
     <div class="references">
