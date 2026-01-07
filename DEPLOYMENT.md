@@ -23,7 +23,7 @@ Before deploying, update these placeholders in the HTML files:
    - Current placeholders:
      ```html
      https://apps.apple.com/app/unwyned
-     https://play.google.com/store/apps/details?id=com.inceptyon.unwyned
+     https://play.google.com/store/apps/details?id=com.unwyned.unwyned
      ```
 
 ### Optional Enhancements

@@ -547,7 +547,7 @@ This document outlines enhancements to elevate the Unwyned/The Racket marketing 
       <a href="https://apps.apple.com/app/unwyned" class="app-button" target="_blank" rel="noopener">
         <img src="assets/images/app-store-badge.svg" alt="Download on the App Store">
       </a>
-      <a href="https://play.google.com/store/apps/details?id=com.inceptyon.unwyned" class="app-button" target="_blank" rel="noopener">
+      <a href="https://play.google.com/store/apps/details?id=com.unwyned.unwyned" class="app-button" target="_blank" rel="noopener">
         <img src="assets/images/google-play-badge.svg" alt="Get it on Google Play">
       </a>
     </div>
