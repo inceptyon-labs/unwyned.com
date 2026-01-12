@@ -75,7 +75,7 @@
         "@type": "Organization",
         "@id": "https://unwyned.com/#organization",
         "name": "Inceptyon Labs",
-        "url": "https://inceptyon.com",
+        "url": "https://inceptyon.io",
         "logo": {
           "@type": "ImageObject",
           "url": "https://unwyned.com/assets/images/logo-fullword-light.png",
@@ -467,7 +467,7 @@
           <div class="footer-section">
             <h4>The Outfit</h4>
             <ul class="footer-links">
-              <li><a href="https://inceptyon.com" target="_blank" rel="noopener">Inceptyon Labs</a></li>
+              <li><a href="https://inceptyon.io" target="_blank" rel="noopener">Inceptyon Labs</a></li>
               <li><a href="mailto:hello@inceptyon.com">Contact</a></li>
             </ul>
           </div>
@@ -589,8 +589,8 @@
           audio.play().then(() => {
             toggle.classList.add('playing');
             localStorage.setItem('unwyned-ambient', 'on');
-          }).catch(e => {
-            console.log('Audio play prevented:', e);
+          }).catch(() => {
+            // Audio autoplay prevented by browser
           });
         } else {
           audio.pause();
