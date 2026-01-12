@@ -1,0 +1,50 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#131618"/>
+
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e2a1e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#131618;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF5F15;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#CF6679;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="80" fill="url(#accentGradient)" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="100" fill="url(#accentGradient)" opacity="0.1"/>
+
+  <!-- Wine glass icon (simplified) -->
+  <g transform="translate(150, 180)">
+    <path d="M 20 0 L 30 50 Q 30 70 20 75 Q 10 70 10 50 Z" stroke="#FF5F15" stroke-width="3" fill="none"/>
+    <line x1="10" y1="50" x2="5" y2="85" stroke="#FF5F15" stroke-width="2"/>
+    <line x1="30" y1="50" x2="35" y2="85" stroke="#FF5F15" stroke-width="2"/>
+    <line x1="8" y1="85" x2="32" y2="85" stroke="#FF5F15" stroke-width="2"/>
+  </g>
+
+  <!-- Main text -->
+  <text x="600" y="280" font-family="Oswald, sans-serif" font-size="90" font-weight="700" fill="#FF5F15" text-anchor="middle" letter-spacing="4">
+    UNWYNED
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="360" font-family="Barlow, sans-serif" font-size="48" fill="#B0C4DE" text-anchor="middle" letter-spacing="2">
+    Wine Recommendations Without the Snobbery
+  </text>
+
+  <!-- Subtext -->
+  <text x="600" y="430" font-family="Roboto, sans-serif" font-size="32" fill="#D0C8C8" text-anchor="middle">
+    Scan. Discover. Enjoy.
+  </text>
+
+  <!-- Footer branding -->
+  <text x="600" y="580" font-family="Roboto, sans-serif" font-size="24" fill="#784F1C" text-anchor="middle">
+    By Inceptyon Labs
+  </text>
+</svg>
