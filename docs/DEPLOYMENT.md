@@ -22,7 +22,7 @@ Before deploying, update these placeholders in the HTML files:
    - Lines 187-190: Update with actual App Store URLs when available
    - Current placeholders:
      ```html
-     https://apps.apple.com/app/unwyned
+     https://apps.apple.com/app/unwyned/id6755911748
      https://play.google.com/store/apps/details?id=com.unwyned.unwyned
      ```
 
