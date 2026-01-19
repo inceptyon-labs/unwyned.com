@@ -170,16 +170,6 @@ Security headers are configured in `_headers`:
 - Safari: Latest 2 versions (iOS 14+)
 - **Glitch animation** gracefully degrades with `prefers-reduced-motion`
 
-## TODO
-
-- [x] Add app screenshots to `/assets/images`
-- [x] Create favicon set (16x16, 32x32, 180x180, 512x512)
-- [x] Add Open Graph images for social sharing
-- [x] Create 404 page
-- [x] Test on actual devices (iOS, Android)
-- [x] Set up Google Analytics (optional, privacy-respecting)
-- [x] Add structured data (JSON-LD) for SEO
-
 ## License
 
 Proprietary - All rights reserved by Inceptyon Labs LLC
