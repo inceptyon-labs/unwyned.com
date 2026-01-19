@@ -9,5 +9,5 @@ http://unwyned.com/* https://unwyned.com/:splat 301!
 # SPA fallback (if you add client-side routing later)
 # /app/* /index.html 200
 
-# 404 page (optional - create 404.html if desired)
-# /* /404.html 404
+# 404 page
+/* /404.html 404

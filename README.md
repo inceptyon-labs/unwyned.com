@@ -1,3 +1,20 @@
+<p align="center">
+  <img src="assets/images/logo-fullword-orange.png" alt="Unwyned Logo" width="400">
+</p>
+
+<p align="center">
+  <strong>Wine recommendations without the snobbery.</strong><br>
+  Point your camera at any wine menu. Get personalized picks. No sommelier required.
+</p>
+
+<p align="center">
+  <a href="https://unwyned.com">Website</a> •
+  <a href="https://apps.apple.com/app/unwyned/id6755911748">Download for iOS</a> •
+  <a href="https://play.google.com/store/apps/details?id=com.unwyned.unwyned">Download for Android</a>
+</p>
+
+---
+
 # Unwyned Landing Page
 
 > "Unwyned is the front. The Racket is the operation."
@@ -155,13 +172,13 @@ Security headers are configured in `_headers`:
 
 ## TODO
 
-- [ ] Add app screenshots to `/assets/images`
-- [ ] Create favicon set (16x16, 32x32, 180x180, 512x512)
-- [ ] Add Open Graph images for social sharing
-- [ ] Create 404 page
-- [ ] Test on actual devices (iOS, Android)
-- [ ] Set up Google Analytics (optional, privacy-respecting)
-- [ ] Add structured data (JSON-LD) for SEO
+- [x] Add app screenshots to `/assets/images`
+- [x] Create favicon set (16x16, 32x32, 180x180, 512x512)
+- [x] Add Open Graph images for social sharing
+- [x] Create 404 page
+- [x] Test on actual devices (iOS, Android)
+- [x] Set up Google Analytics (optional, privacy-respecting)
+- [x] Add structured data (JSON-LD) for SEO
 
 ## License
 
